@@ -1,11 +1,16 @@
+hosts:
+  mtalk.google.com: 108.177.125.188
+  raw.githubusercontent.com: 151.101.76.133
 dns:
   enabled: true
   ipv6: true
   listen: "127.0.0.1:53"
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
+  use-hosts: true
   nameserver-policy:
     {
+      "*.google.com": 8.8.8.8,
       "*.tw": 1.1.1.1,
       testflight.apple.com: 8.8.8.8,
       "*.tmall.com": 223.5.5.5,
@@ -33,13 +38,13 @@ dns:
       "*.baidu.com": 114.114.114.114,
       "*.bdstatic.com": 114.114.114.114,
     }
-  nameserver: [119.29.29.29, 223.5.5.5, 156.154.70.1, 1.0.0.1]
+  nameserver: ["https://doh.pub/dns-query", "https://dns.alidns.com/dns-query"]
   fallback:
     [
-      "208.67.222.222:5353",
-      "208.67.220.220:5353",
-      "208.67.222.220:5353",
-      "208.67.220.222:5353",
+      "https://doh.dns.sb/dns-query",
+      "https://dns.cloudflare.com/dns-query",
+      "https://dns.twnic.tw/dns-query",
+      "tls://8.8.4.4:853",
       "https://1.1.1.1/dns-query",
       "https://1.1.1.2/dns-query",
       "https://1.1.1.3/dns-query",
@@ -58,4 +63,4 @@ dns:
       "https://101.101.101.101/dns-query",
       "https://149.112.112.11:5053/dns-query",
     ]
-  fallback-filter: { geoip: true, ipcidr: [240.0.0.0/4] }
+  fallback-filter: { geoip: true, ipcidr: [240.0.0.0/4, 0.0.0.0/32] }
